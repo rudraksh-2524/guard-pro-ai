@@ -39,7 +39,8 @@ export function RoleArea({
   if (loading || !allowed) {
     return (
       <div className="min-h-screen bg-background p-6">
-        <LoadingState label="Checking your session…" />
+        <p className="mb-3 text-sm text-muted-foreground">Checking your session…</p>
+        <LoadingState />
       </div>
     );
   }
