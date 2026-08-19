@@ -73,7 +73,7 @@ function StudentHistory() {
                     </td>
                     <td className="px-4 py-3 text-right">
                       <Button asChild size="sm" variant="outline">
-                        <Link to="/exam/$examId/result" params={{ examId: s.exam_id }} search={{ session: s.id }}>
+                        <Link to="/exam/$examId/result" params={{ examId: s.exam_id }}>
                           View
                         </Link>
                       </Button>
