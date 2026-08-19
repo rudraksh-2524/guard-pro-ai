@@ -27,8 +27,6 @@ const tooltipStyle = {
   color: "var(--foreground)",
 };
 
-const riskColors = ["var(--success)", "var(--warning)", "var(--destructive)", "var(--destructive)"];
-
 export function RiskDistributionChart() {
   return (
     <div className="h-56 w-full">
@@ -36,29 +34,25 @@ export function RiskDistributionChart() {
         <PieChart>
           <Pie
             data={riskDistribution}
-            dataKey="value"
-            nameKey="label"
+            dataKey="sessions"
+            nameKey="level"
             innerRadius={45}
             outerRadius={75}
             paddingAngle={2}
             stroke="var(--card)"
           >
-            {riskDistribution.map((entry, i) => (
-              <Cell key={entry.label} fill={riskColors[i % riskColors.length]} />
+            {riskDistribution.map((entry) => (
+              <Cell key={entry.level} fill={entry.fill} />
             ))}
           </Pie>
           <Tooltip contentStyle={tooltipStyle} />
         </PieChart>
       </ResponsiveContainer>
       <ul className="mt-1 flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
-        {riskDistribution.map((entry, i) => (
-          <li key={entry.label} className="flex items-center gap-1.5">
-            <span
-              className="h-2 w-2 rounded-full"
-              style={{ backgroundColor: riskColors[i % riskColors.length] }}
-              aria-hidden="true"
-            />
-            {entry.label} ({entry.value})
+        {riskDistribution.map((entry) => (
+          <li key={entry.level} className="flex items-center gap-1.5">
+            <span className="h-2 w-2 rounded-full" style={{ backgroundColor: entry.fill }} aria-hidden="true" />
+            {entry.level} ({entry.sessions})
           </li>
         ))}
       </ul>
@@ -72,10 +66,11 @@ export function EventsOverTimeChart() {
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={eventsOverTime}>
           <CartesianGrid stroke="var(--border)" vertical={false} />
-          <XAxis dataKey="label" {...axis} tickLine={false} />
+          <XAxis dataKey="time" {...axis} tickLine={false} />
           <YAxis {...axis} tickLine={false} width={28} />
           <Tooltip contentStyle={tooltipStyle} />
-          <Bar dataKey="value" fill="var(--primary)" radius={[3, 3, 0, 0]} />
+          <Bar dataKey="events" name="Events" fill="var(--color-chart-1)" radius={[3, 3, 0, 0]} />
+          <Bar dataKey="high_severity" name="High severity" fill="var(--color-chart-4)" radius={[3, 3, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>
     </div>
@@ -88,12 +83,13 @@ export function AverageRiskChart() {
       <ResponsiveContainer width="100%" height="100%">
         <AreaChart data={averageRiskTrend}>
           <CartesianGrid stroke="var(--border)" vertical={false} />
-          <XAxis dataKey="label" {...axis} tickLine={false} />
+          <XAxis dataKey="day" {...axis} tickLine={false} />
           <YAxis {...axis} tickLine={false} width={28} domain={[0, 100]} />
           <Tooltip contentStyle={tooltipStyle} />
           <Area
             type="monotone"
-            dataKey="value"
+            dataKey="average_risk"
+            name="Average risk"
             stroke="var(--primary)"
             fill="var(--primary)"
             fillOpacity={0.18}
@@ -112,9 +108,10 @@ export function ParticipationChart() {
         <BarChart data={examParticipation} layout="vertical" margin={{ left: 8 }}>
           <CartesianGrid stroke="var(--border)" horizontal={false} />
           <XAxis type="number" {...axis} tickLine={false} />
-          <YAxis type="category" dataKey="label" {...axis} tickLine={false} width={120} />
+          <YAxis type="category" dataKey="exam" {...axis} tickLine={false} width={110} />
           <Tooltip contentStyle={tooltipStyle} />
-          <Bar dataKey="value" fill="var(--primary)" radius={[0, 3, 3, 0]} />
+          <Bar dataKey="enrolled" name="Enrolled" fill="var(--color-chart-3)" radius={[0, 3, 3, 0]} />
+          <Bar dataKey="attempted" name="Attempted" fill="var(--color-chart-1)" radius={[0, 3, 3, 0]} />
         </BarChart>
       </ResponsiveContainer>
     </div>
