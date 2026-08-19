@@ -19,6 +19,7 @@ import { Route as StudentDashboardRouteImport } from './routes/student.dashboard
 import { Route as StudentDemoQuizRouteImport } from './routes/student.demo-quiz'
 import { Route as StudentExamsRouteImport } from './routes/student.exams'
 import { Route as StudentHistoryRouteImport } from './routes/student.history'
+import { Route as StudentProfileRouteImport } from './routes/student.profile'
 import { Route as ExamExamIdAttemptRouteImport } from './routes/exam.$examId.attempt'
 import { Route as ExamExamIdResultRouteImport } from './routes/exam.$examId.result'
 import { Route as ExamExamIdSystemCheckRouteImport } from './routes/exam.$examId.system-check'
@@ -73,6 +74,11 @@ const StudentHistoryRoute = StudentHistoryRouteImport.update({
   path: '/history',
   getParentRoute: () => StudentRoute,
 } as any)
+const StudentProfileRoute = StudentProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => StudentRoute,
+} as any)
 const ExamExamIdAttemptRoute = ExamExamIdAttemptRouteImport.update({
   id: '/exam/$examId/attempt',
   path: '/exam/$examId/attempt',
@@ -99,6 +105,7 @@ export interface FileRoutesByFullPath {
   '/student/demo-quiz': typeof StudentDemoQuizRoute
   '/student/exams': typeof StudentExamsRoute
   '/student/history': typeof StudentHistoryRoute
+  '/student/profile': typeof StudentProfileRoute
   '/student/': typeof StudentIndexRoute
   '/exam/$examId/attempt': typeof ExamExamIdAttemptRoute
   '/exam/$examId/result': typeof ExamExamIdResultRoute
@@ -113,6 +120,7 @@ export interface FileRoutesByTo {
   '/student/demo-quiz': typeof StudentDemoQuizRoute
   '/student/exams': typeof StudentExamsRoute
   '/student/history': typeof StudentHistoryRoute
+  '/student/profile': typeof StudentProfileRoute
   '/student': typeof StudentIndexRoute
   '/exam/$examId/attempt': typeof ExamExamIdAttemptRoute
   '/exam/$examId/result': typeof ExamExamIdResultRoute
@@ -129,6 +137,7 @@ export interface FileRoutesById {
   '/student/demo-quiz': typeof StudentDemoQuizRoute
   '/student/exams': typeof StudentExamsRoute
   '/student/history': typeof StudentHistoryRoute
+  '/student/profile': typeof StudentProfileRoute
   '/student/': typeof StudentIndexRoute
   '/exam/$examId/attempt': typeof ExamExamIdAttemptRoute
   '/exam/$examId/result': typeof ExamExamIdResultRoute
@@ -146,6 +155,7 @@ export interface FileRouteTypes {
     | '/student/demo-quiz'
     | '/student/exams'
     | '/student/history'
+    | '/student/profile'
     | '/student/'
     | '/exam/$examId/attempt'
     | '/exam/$examId/result'
@@ -160,6 +170,7 @@ export interface FileRouteTypes {
     | '/student/demo-quiz'
     | '/student/exams'
     | '/student/history'
+    | '/student/profile'
     | '/student'
     | '/exam/$examId/attempt'
     | '/exam/$examId/result'
@@ -175,6 +186,7 @@ export interface FileRouteTypes {
     | '/student/demo-quiz'
     | '/student/exams'
     | '/student/history'
+    | '/student/profile'
     | '/student/'
     | '/exam/$examId/attempt'
     | '/exam/$examId/result'
@@ -264,6 +276,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StudentHistoryRouteImport
       parentRoute: typeof StudentRoute
     }
+    '/student/profile': {
+      id: '/student/profile'
+      path: '/profile'
+      fullPath: '/student/profile'
+      preLoaderRoute: typeof StudentProfileRouteImport
+      parentRoute: typeof StudentRoute
+    }
     '/exam/$examId/attempt': {
       id: '/exam/$examId/attempt'
       path: '/exam/$examId/attempt'
@@ -293,6 +312,7 @@ interface StudentRouteChildren {
   StudentDemoQuizRoute: typeof StudentDemoQuizRoute
   StudentExamsRoute: typeof StudentExamsRoute
   StudentHistoryRoute: typeof StudentHistoryRoute
+  StudentProfileRoute: typeof StudentProfileRoute
   StudentIndexRoute: typeof StudentIndexRoute
 }
 
@@ -301,6 +321,7 @@ const StudentRouteChildren: StudentRouteChildren = {
   StudentDemoQuizRoute: StudentDemoQuizRoute,
   StudentExamsRoute: StudentExamsRoute,
   StudentHistoryRoute: StudentHistoryRoute,
+  StudentProfileRoute: StudentProfileRoute,
   StudentIndexRoute: StudentIndexRoute,
 }
 
