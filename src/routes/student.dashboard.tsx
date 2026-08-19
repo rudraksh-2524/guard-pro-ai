@@ -4,7 +4,7 @@ import { PageHeader, SectionTitle, StatCard } from "@/components/common/states";
 import { DemoBadge, RiskBadge } from "@/components/common/badges";
 import { DEMO_EXAM_ID } from "@/constants";
 import { demoExams, demoSessions, studentRecentActivity } from "@/lib/demo-data";
-import { formatDateTime, formatDuration } from "@/lib/format";
+import { formatDateTime, formatDuration, relativeTime } from "@/lib/format";
 import { useAuth } from "@/hooks/use-auth";
 import { riskLevelFor } from "@/services/risk-engine";
 import { pageHead } from "@/lib/seo";
@@ -112,9 +112,9 @@ function StudentDashboard() {
           <SectionTitle aside={<DemoBadge />}>Activity log</SectionTitle>
           <ul className="panel divide-y divide-border">
             {studentRecentActivity.map((item) => (
-              <li key={item.label} className="flex items-center justify-between gap-3 p-3 text-sm">
+              <li key={item.id} className="flex items-center justify-between gap-3 p-3 text-sm">
                 <span className="text-foreground">{item.label}</span>
-                <span className="font-mono text-xs text-muted-foreground">{item.at}</span>
+                <span className="shrink-0 font-mono text-xs text-muted-foreground">{relativeTime(item.at)}</span>
               </li>
             ))}
           </ul>
