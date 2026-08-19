@@ -43,16 +43,11 @@ export const Route = createFileRoute("/exam/$examId/attempt")({
     if (!loaderData) {
       return { meta: [{ title: "Attempt unavailable — Proctor Guard AI" }, { name: "robots", content: "noindex" }] };
     }
-    return {
-      ...pageHead(
-        `Attempt — ${loaderData.exam.title}`,
-        "Supervised assessment attempt with live monitoring status and a question palette.",
-      ),
-      meta: [
-        ...pageHead(`Attempt — ${loaderData.exam.title}`, "Supervised assessment attempt.").meta,
-        { name: "robots", content: "noindex" },
-      ],
-    };
+    const base = pageHead(
+      `Attempt — ${loaderData.exam.title}`,
+      "Supervised assessment attempt with live monitoring status and a question palette.",
+    );
+    return { meta: [...base.meta, { name: "robots", content: "noindex" }] };
   },
   component: AttemptPage,
 });
