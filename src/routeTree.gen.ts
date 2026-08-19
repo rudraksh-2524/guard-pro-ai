@@ -19,6 +19,7 @@ import { Route as StudentDashboardRouteImport } from './routes/student.dashboard
 import { Route as StudentDemoQuizRouteImport } from './routes/student.demo-quiz'
 import { Route as StudentExamsRouteImport } from './routes/student.exams'
 import { Route as StudentHistoryRouteImport } from './routes/student.history'
+import { Route as ExamExamIdSystemCheckRouteImport } from './routes/exam.$examId.system-check'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -70,6 +71,11 @@ const StudentHistoryRoute = StudentHistoryRouteImport.update({
   path: '/history',
   getParentRoute: () => StudentRoute,
 } as any)
+const ExamExamIdSystemCheckRoute = ExamExamIdSystemCheckRouteImport.update({
+  id: '/exam/$examId/system-check',
+  path: '/exam/$examId/system-check',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -82,6 +88,7 @@ export interface FileRoutesByFullPath {
   '/student/exams': typeof StudentExamsRoute
   '/student/history': typeof StudentHistoryRoute
   '/student/': typeof StudentIndexRoute
+  '/exam/$examId/system-check': typeof ExamExamIdSystemCheckRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -93,6 +100,7 @@ export interface FileRoutesByTo {
   '/student/exams': typeof StudentExamsRoute
   '/student/history': typeof StudentHistoryRoute
   '/student': typeof StudentIndexRoute
+  '/exam/$examId/system-check': typeof ExamExamIdSystemCheckRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -106,6 +114,7 @@ export interface FileRoutesById {
   '/student/exams': typeof StudentExamsRoute
   '/student/history': typeof StudentHistoryRoute
   '/student/': typeof StudentIndexRoute
+  '/exam/$examId/system-check': typeof ExamExamIdSystemCheckRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -120,6 +129,7 @@ export interface FileRouteTypes {
     | '/student/exams'
     | '/student/history'
     | '/student/'
+    | '/exam/$examId/system-check'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -131,6 +141,7 @@ export interface FileRouteTypes {
     | '/student/exams'
     | '/student/history'
     | '/student'
+    | '/exam/$examId/system-check'
   id:
     | '__root__'
     | '/'
@@ -143,6 +154,7 @@ export interface FileRouteTypes {
     | '/student/exams'
     | '/student/history'
     | '/student/'
+    | '/exam/$examId/system-check'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -151,6 +163,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   RegisterRoute: typeof RegisterRoute
   StudentRoute: typeof StudentRouteWithChildren
+  ExamExamIdSystemCheckRoute: typeof ExamExamIdSystemCheckRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -225,6 +238,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StudentHistoryRouteImport
       parentRoute: typeof StudentRoute
     }
+    '/exam/$examId/system-check': {
+      id: '/exam/$examId/system-check'
+      path: '/exam/$examId/system-check'
+      fullPath: '/exam/$examId/system-check'
+      preLoaderRoute: typeof ExamExamIdSystemCheckRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -253,6 +273,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,
   StudentRoute: StudentRouteWithChildren,
+  ExamExamIdSystemCheckRoute: ExamExamIdSystemCheckRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
