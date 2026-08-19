@@ -16,6 +16,7 @@ import { Route as RegisterRouteImport } from './routes/register'
 import { Route as StudentRouteImport } from './routes/student'
 import { Route as StudentIndexRouteImport } from './routes/student.index'
 import { Route as StudentDashboardRouteImport } from './routes/student.dashboard'
+import { Route as StudentExamsRouteImport } from './routes/student.exams'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -52,6 +53,11 @@ const StudentDashboardRoute = StudentDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => StudentRoute,
 } as any)
+const StudentExamsRoute = StudentExamsRouteImport.update({
+  id: '/exams',
+  path: '/exams',
+  getParentRoute: () => StudentRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -60,6 +66,7 @@ export interface FileRoutesByFullPath {
   '/register': typeof RegisterRoute
   '/student': typeof StudentRouteWithChildren
   '/student/dashboard': typeof StudentDashboardRoute
+  '/student/exams': typeof StudentExamsRoute
   '/student/': typeof StudentIndexRoute
 }
 export interface FileRoutesByTo {
@@ -68,6 +75,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/student/dashboard': typeof StudentDashboardRoute
+  '/student/exams': typeof StudentExamsRoute
   '/student': typeof StudentIndexRoute
 }
 export interface FileRoutesById {
@@ -78,6 +86,7 @@ export interface FileRoutesById {
   '/register': typeof RegisterRoute
   '/student': typeof StudentRouteWithChildren
   '/student/dashboard': typeof StudentDashboardRoute
+  '/student/exams': typeof StudentExamsRoute
   '/student/': typeof StudentIndexRoute
 }
 export interface FileRouteTypes {
@@ -89,6 +98,7 @@ export interface FileRouteTypes {
     | '/register'
     | '/student'
     | '/student/dashboard'
+    | '/student/exams'
     | '/student/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -97,6 +107,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/register'
     | '/student/dashboard'
+    | '/student/exams'
     | '/student'
   id:
     | '__root__'
@@ -106,6 +117,7 @@ export interface FileRouteTypes {
     | '/register'
     | '/student'
     | '/student/dashboard'
+    | '/student/exams'
     | '/student/'
   fileRoutesById: FileRoutesById
 }
@@ -168,16 +180,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StudentDashboardRouteImport
       parentRoute: typeof StudentRoute
     }
+    '/student/exams': {
+      id: '/student/exams'
+      path: '/exams'
+      fullPath: '/student/exams'
+      preLoaderRoute: typeof StudentExamsRouteImport
+      parentRoute: typeof StudentRoute
+    }
   }
 }
 
 interface StudentRouteChildren {
   StudentDashboardRoute: typeof StudentDashboardRoute
+  StudentExamsRoute: typeof StudentExamsRoute
   StudentIndexRoute: typeof StudentIndexRoute
 }
 
 const StudentRouteChildren: StudentRouteChildren = {
   StudentDashboardRoute: StudentDashboardRoute,
+  StudentExamsRoute: StudentExamsRoute,
   StudentIndexRoute: StudentIndexRoute,
 }
 
