@@ -15,6 +15,7 @@ import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as StudentRouteImport } from './routes/student'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as StudentIndexRouteImport } from './routes/student.index'
 import { Route as StudentDashboardRouteImport } from './routes/student.dashboard'
 import { Route as StudentDemoQuizRouteImport } from './routes/student.demo-quiz'
@@ -54,6 +55,11 @@ const StudentRoute = StudentRouteImport.update({
   id: '/student',
   path: '/student',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
 } as any)
 const StudentIndexRoute = StudentIndexRouteImport.update({
   id: '/',
@@ -103,7 +109,7 @@ const ExamExamIdSystemCheckRoute = ExamExamIdSystemCheckRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
@@ -113,6 +119,7 @@ export interface FileRoutesByFullPath {
   '/student/exams': typeof StudentExamsRoute
   '/student/history': typeof StudentHistoryRoute
   '/student/profile': typeof StudentProfileRoute
+  '/admin/': typeof AdminIndexRoute
   '/student/': typeof StudentIndexRoute
   '/exam/$examId/attempt': typeof ExamExamIdAttemptRoute
   '/exam/$examId/result': typeof ExamExamIdResultRoute
@@ -120,7 +127,6 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
@@ -129,6 +135,7 @@ export interface FileRoutesByTo {
   '/student/exams': typeof StudentExamsRoute
   '/student/history': typeof StudentHistoryRoute
   '/student/profile': typeof StudentProfileRoute
+  '/admin': typeof AdminIndexRoute
   '/student': typeof StudentIndexRoute
   '/exam/$examId/attempt': typeof ExamExamIdAttemptRoute
   '/exam/$examId/result': typeof ExamExamIdResultRoute
@@ -137,7 +144,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
@@ -147,6 +154,7 @@ export interface FileRoutesById {
   '/student/exams': typeof StudentExamsRoute
   '/student/history': typeof StudentHistoryRoute
   '/student/profile': typeof StudentProfileRoute
+  '/admin/': typeof AdminIndexRoute
   '/student/': typeof StudentIndexRoute
   '/exam/$examId/attempt': typeof ExamExamIdAttemptRoute
   '/exam/$examId/result': typeof ExamExamIdResultRoute
@@ -166,6 +174,7 @@ export interface FileRouteTypes {
     | '/student/exams'
     | '/student/history'
     | '/student/profile'
+    | '/admin/'
     | '/student/'
     | '/exam/$examId/attempt'
     | '/exam/$examId/result'
@@ -173,7 +182,6 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/admin'
     | '/forgot-password'
     | '/login'
     | '/register'
@@ -182,6 +190,7 @@ export interface FileRouteTypes {
     | '/student/exams'
     | '/student/history'
     | '/student/profile'
+    | '/admin'
     | '/student'
     | '/exam/$examId/attempt'
     | '/exam/$examId/result'
@@ -199,6 +208,7 @@ export interface FileRouteTypes {
     | '/student/exams'
     | '/student/history'
     | '/student/profile'
+    | '/admin/'
     | '/student/'
     | '/exam/$examId/attempt'
     | '/exam/$examId/result'
@@ -207,7 +217,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AdminRoute: typeof AdminRoute
+  AdminRoute: typeof AdminRouteWithChildren
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   LoginRoute: typeof LoginRoute
   RegisterRoute: typeof RegisterRoute
@@ -260,6 +270,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/student'
       preLoaderRoute: typeof StudentRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/student/': {
       id: '/student/'
@@ -327,6 +344,16 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AdminRouteChildren {
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 interface StudentRouteChildren {
   StudentDashboardRoute: typeof StudentDashboardRoute
   StudentDemoQuizRoute: typeof StudentDemoQuizRoute
@@ -350,7 +377,7 @@ const StudentRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AdminRoute: AdminRoute,
+  AdminRoute: AdminRouteWithChildren,
   ForgotPasswordRoute: ForgotPasswordRoute,
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,
