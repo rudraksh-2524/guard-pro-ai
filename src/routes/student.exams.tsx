@@ -56,7 +56,7 @@ function StudentExams() {
                   <h2 className="text-sm font-semibold text-foreground">{exam.title}</h2>
                   <p className="mt-0.5 text-xs text-muted-foreground">{exam.subject}</p>
                 </div>
-                {exam.id === DEMO_EXAM_ID ? <DemoBadge /> : <StatusPill tone="success" label="Published" />}
+                {exam.id === DEMO_EXAM_ID ? <DemoBadge /> : <StatusPill tone="ok" label="Published" />}
               </div>
               <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{exam.description}</p>
               <dl className="mt-3 grid grid-cols-2 gap-3 border-t border-border pt-3 text-xs sm:grid-cols-4">
