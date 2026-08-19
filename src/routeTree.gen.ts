@@ -16,6 +16,7 @@ import { Route as RegisterRouteImport } from './routes/register'
 import { Route as StudentRouteImport } from './routes/student'
 import { Route as StudentIndexRouteImport } from './routes/student.index'
 import { Route as StudentDashboardRouteImport } from './routes/student.dashboard'
+import { Route as StudentDemoQuizRouteImport } from './routes/student.demo-quiz'
 import { Route as StudentExamsRouteImport } from './routes/student.exams'
 
 const IndexRoute = IndexRouteImport.update({
@@ -53,6 +54,11 @@ const StudentDashboardRoute = StudentDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => StudentRoute,
 } as any)
+const StudentDemoQuizRoute = StudentDemoQuizRouteImport.update({
+  id: '/demo-quiz',
+  path: '/demo-quiz',
+  getParentRoute: () => StudentRoute,
+} as any)
 const StudentExamsRoute = StudentExamsRouteImport.update({
   id: '/exams',
   path: '/exams',
@@ -66,6 +72,7 @@ export interface FileRoutesByFullPath {
   '/register': typeof RegisterRoute
   '/student': typeof StudentRouteWithChildren
   '/student/dashboard': typeof StudentDashboardRoute
+  '/student/demo-quiz': typeof StudentDemoQuizRoute
   '/student/exams': typeof StudentExamsRoute
   '/student/': typeof StudentIndexRoute
 }
@@ -75,6 +82,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/student/dashboard': typeof StudentDashboardRoute
+  '/student/demo-quiz': typeof StudentDemoQuizRoute
   '/student/exams': typeof StudentExamsRoute
   '/student': typeof StudentIndexRoute
 }
@@ -86,6 +94,7 @@ export interface FileRoutesById {
   '/register': typeof RegisterRoute
   '/student': typeof StudentRouteWithChildren
   '/student/dashboard': typeof StudentDashboardRoute
+  '/student/demo-quiz': typeof StudentDemoQuizRoute
   '/student/exams': typeof StudentExamsRoute
   '/student/': typeof StudentIndexRoute
 }
@@ -98,6 +107,7 @@ export interface FileRouteTypes {
     | '/register'
     | '/student'
     | '/student/dashboard'
+    | '/student/demo-quiz'
     | '/student/exams'
     | '/student/'
   fileRoutesByTo: FileRoutesByTo
@@ -107,6 +117,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/register'
     | '/student/dashboard'
+    | '/student/demo-quiz'
     | '/student/exams'
     | '/student'
   id:
@@ -117,6 +128,7 @@ export interface FileRouteTypes {
     | '/register'
     | '/student'
     | '/student/dashboard'
+    | '/student/demo-quiz'
     | '/student/exams'
     | '/student/'
   fileRoutesById: FileRoutesById
@@ -180,6 +192,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StudentDashboardRouteImport
       parentRoute: typeof StudentRoute
     }
+    '/student/demo-quiz': {
+      id: '/student/demo-quiz'
+      path: '/demo-quiz'
+      fullPath: '/student/demo-quiz'
+      preLoaderRoute: typeof StudentDemoQuizRouteImport
+      parentRoute: typeof StudentRoute
+    }
     '/student/exams': {
       id: '/student/exams'
       path: '/exams'
@@ -192,12 +211,14 @@ declare module '@tanstack/react-router' {
 
 interface StudentRouteChildren {
   StudentDashboardRoute: typeof StudentDashboardRoute
+  StudentDemoQuizRoute: typeof StudentDemoQuizRoute
   StudentExamsRoute: typeof StudentExamsRoute
   StudentIndexRoute: typeof StudentIndexRoute
 }
 
 const StudentRouteChildren: StudentRouteChildren = {
   StudentDashboardRoute: StudentDashboardRoute,
+  StudentDemoQuizRoute: StudentDemoQuizRoute,
   StudentExamsRoute: StudentExamsRoute,
   StudentIndexRoute: StudentIndexRoute,
 }
