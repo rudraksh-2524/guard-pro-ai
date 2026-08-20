@@ -71,16 +71,16 @@ function AdminDashboard() {
           <SectionTitle>Signals by category</SectionTitle>
           <ul className="space-y-2.5">
             {eventCategories.map((c) => (
-              <li key={c.label}>
+              <li key={c.category}>
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-muted-foreground">{c.label}</span>
-                  <span className="font-mono text-foreground">{c.value}</span>
+                  <span className="text-muted-foreground">{c.category}</span>
+                  <span className="font-mono text-foreground">{c.count}</span>
                 </div>
                 <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-secondary">
                   <div
                     className="h-full bg-primary"
                     style={{
-                      width: `${Math.round((c.value / Math.max(...eventCategories.map((e) => e.value))) * 100)}%`,
+                      width: `${Math.round((c.count / Math.max(...eventCategories.map((e) => e.count))) * 100)}%`,
                     }}
                   />
                 </div>
