@@ -35,8 +35,8 @@ const statusTone: Record<ExamStatus, "ok" | "warn" | "neutral" | "bad"> = {
   published: "ok",
   draft: "warn",
   archived: "neutral",
-  closed: "neutral",
 };
+
 
 function AdminExams() {
   const [open, setOpen] = useState(false);
