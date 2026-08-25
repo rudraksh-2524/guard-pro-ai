@@ -17,6 +17,7 @@ import { Route as RegisterRouteImport } from './routes/register'
 import { Route as StudentRouteImport } from './routes/student'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminDashboardRouteImport } from './routes/admin.dashboard'
+import { Route as AdminEvidenceRouteImport } from './routes/admin.evidence'
 import { Route as AdminExamsRouteImport } from './routes/admin.exams'
 import { Route as AdminMonitoringRouteImport } from './routes/admin.monitoring'
 import { Route as AdminQuestionsRouteImport } from './routes/admin.questions'
@@ -70,6 +71,11 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
 const AdminDashboardRoute = AdminDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminEvidenceRoute = AdminEvidenceRouteImport.update({
+  id: '/evidence',
+  path: '/evidence',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminExamsRoute = AdminExamsRouteImport.update({
@@ -151,6 +157,7 @@ export interface FileRoutesByFullPath {
   '/register': typeof RegisterRoute
   '/student': typeof StudentRouteWithChildren
   '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/evidence': typeof AdminEvidenceRoute
   '/admin/exams': typeof AdminExamsRoute
   '/admin/monitoring': typeof AdminMonitoringRoute
   '/admin/questions': typeof AdminQuestionsRoute
@@ -173,6 +180,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/evidence': typeof AdminEvidenceRoute
   '/admin/exams': typeof AdminExamsRoute
   '/admin/monitoring': typeof AdminMonitoringRoute
   '/admin/questions': typeof AdminQuestionsRoute
@@ -198,6 +206,7 @@ export interface FileRoutesById {
   '/register': typeof RegisterRoute
   '/student': typeof StudentRouteWithChildren
   '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/evidence': typeof AdminEvidenceRoute
   '/admin/exams': typeof AdminExamsRoute
   '/admin/monitoring': typeof AdminMonitoringRoute
   '/admin/questions': typeof AdminQuestionsRoute
@@ -224,6 +233,7 @@ export interface FileRouteTypes {
     | '/register'
     | '/student'
     | '/admin/dashboard'
+    | '/admin/evidence'
     | '/admin/exams'
     | '/admin/monitoring'
     | '/admin/questions'
@@ -246,6 +256,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/register'
     | '/admin/dashboard'
+    | '/admin/evidence'
     | '/admin/exams'
     | '/admin/monitoring'
     | '/admin/questions'
@@ -270,6 +281,7 @@ export interface FileRouteTypes {
     | '/register'
     | '/student'
     | '/admin/dashboard'
+    | '/admin/evidence'
     | '/admin/exams'
     | '/admin/monitoring'
     | '/admin/questions'
@@ -355,6 +367,13 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/admin/dashboard'
       preLoaderRoute: typeof AdminDashboardRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/evidence': {
+      id: '/admin/evidence'
+      path: '/evidence'
+      fullPath: '/admin/evidence'
+      preLoaderRoute: typeof AdminEvidenceRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/exams': {
@@ -460,6 +479,7 @@ declare module '@tanstack/react-router' {
 
 interface AdminRouteChildren {
   AdminDashboardRoute: typeof AdminDashboardRoute
+  AdminEvidenceRoute: typeof AdminEvidenceRoute
   AdminExamsRoute: typeof AdminExamsRoute
   AdminMonitoringRoute: typeof AdminMonitoringRoute
   AdminQuestionsRoute: typeof AdminQuestionsRoute
@@ -470,6 +490,7 @@ interface AdminRouteChildren {
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminDashboardRoute: AdminDashboardRoute,
+  AdminEvidenceRoute: AdminEvidenceRoute,
   AdminExamsRoute: AdminExamsRoute,
   AdminMonitoringRoute: AdminMonitoringRoute,
   AdminQuestionsRoute: AdminQuestionsRoute,
