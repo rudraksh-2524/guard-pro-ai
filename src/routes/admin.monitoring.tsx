@@ -16,7 +16,7 @@ export const Route = createFileRoute("/admin/monitoring")({
       "Live monitoring — Proctor Guard AI",
       "Supervise active examination sessions, camera state and risk scores in one board.",
     ),
-  component: AdminMonitoring;
+  component: AdminMonitoring,
 });
 
 const FILTERS: { key: RiskLevel | "all"; label: string }[] = [
@@ -92,11 +92,11 @@ function AdminMonitoring() {
 
             <div className="flex flex-wrap gap-1.5">
               <StatusPill
-                tone={s.camera === "connected" ? "success" : "danger"}
+                tone={s.camera === "connected" ? "ok" : "bad"}
                 label={s.camera === "connected" ? "Camera live" : "Camera lost"}
               />
               <StatusPill
-                tone={s.monitoring === "active" ? "success" : "warning"}
+                tone={s.monitoring === "active" ? "ok" : "warn"}
                 label={s.monitoring === "active" ? "Monitoring active" : "Monitoring paused"}
               />
             </div>
