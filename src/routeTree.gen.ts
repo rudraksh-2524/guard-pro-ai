@@ -24,6 +24,7 @@ import { Route as StudentDemoQuizRouteImport } from './routes/student.demo-quiz'
 import { Route as StudentExamsRouteImport } from './routes/student.exams'
 import { Route as StudentHistoryRouteImport } from './routes/student.history'
 import { Route as StudentProfileRouteImport } from './routes/student.profile'
+import { Route as AdminSessionsSessionIdRouteImport } from './routes/admin.sessions.$sessionId'
 import { Route as ExamExamIdAttemptRouteImport } from './routes/exam.$examId.attempt'
 import { Route as ExamExamIdResultRouteImport } from './routes/exam.$examId.result'
 import { Route as ExamExamIdSystemCheckRouteImport } from './routes/exam.$examId.system-check'
@@ -103,6 +104,11 @@ const StudentProfileRoute = StudentProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => StudentRoute,
 } as any)
+const AdminSessionsSessionIdRoute = AdminSessionsSessionIdRouteImport.update({
+  id: '/sessions/$sessionId',
+  path: '/sessions/$sessionId',
+  getParentRoute: () => AdminRoute,
+} as any)
 const ExamExamIdAttemptRoute = ExamExamIdAttemptRouteImport.update({
   id: '/exam/$examId/attempt',
   path: '/exam/$examId/attempt',
@@ -135,6 +141,7 @@ export interface FileRoutesByFullPath {
   '/student/profile': typeof StudentProfileRoute
   '/admin/': typeof AdminIndexRoute
   '/student/': typeof StudentIndexRoute
+  '/admin/sessions/$sessionId': typeof AdminSessionsSessionIdRoute
   '/exam/$examId/attempt': typeof ExamExamIdAttemptRoute
   '/exam/$examId/result': typeof ExamExamIdResultRoute
   '/exam/$examId/system-check': typeof ExamExamIdSystemCheckRoute
@@ -153,6 +160,7 @@ export interface FileRoutesByTo {
   '/student/profile': typeof StudentProfileRoute
   '/admin': typeof AdminIndexRoute
   '/student': typeof StudentIndexRoute
+  '/admin/sessions/$sessionId': typeof AdminSessionsSessionIdRoute
   '/exam/$examId/attempt': typeof ExamExamIdAttemptRoute
   '/exam/$examId/result': typeof ExamExamIdResultRoute
   '/exam/$examId/system-check': typeof ExamExamIdSystemCheckRoute
@@ -174,6 +182,7 @@ export interface FileRoutesById {
   '/student/profile': typeof StudentProfileRoute
   '/admin/': typeof AdminIndexRoute
   '/student/': typeof StudentIndexRoute
+  '/admin/sessions/$sessionId': typeof AdminSessionsSessionIdRoute
   '/exam/$examId/attempt': typeof ExamExamIdAttemptRoute
   '/exam/$examId/result': typeof ExamExamIdResultRoute
   '/exam/$examId/system-check': typeof ExamExamIdSystemCheckRoute
@@ -196,6 +205,7 @@ export interface FileRouteTypes {
     | '/student/profile'
     | '/admin/'
     | '/student/'
+    | '/admin/sessions/$sessionId'
     | '/exam/$examId/attempt'
     | '/exam/$examId/result'
     | '/exam/$examId/system-check'
@@ -214,6 +224,7 @@ export interface FileRouteTypes {
     | '/student/profile'
     | '/admin'
     | '/student'
+    | '/admin/sessions/$sessionId'
     | '/exam/$examId/attempt'
     | '/exam/$examId/result'
     | '/exam/$examId/system-check'
@@ -234,6 +245,7 @@ export interface FileRouteTypes {
     | '/student/profile'
     | '/admin/'
     | '/student/'
+    | '/admin/sessions/$sessionId'
     | '/exam/$examId/attempt'
     | '/exam/$examId/result'
     | '/exam/$examId/system-check'
@@ -358,6 +370,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StudentProfileRouteImport
       parentRoute: typeof StudentRoute
     }
+    '/admin/sessions/$sessionId': {
+      id: '/admin/sessions/$sessionId'
+      path: '/sessions/$sessionId'
+      fullPath: '/admin/sessions/$sessionId'
+      preLoaderRoute: typeof AdminSessionsSessionIdRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/exam/$examId/attempt': {
       id: '/exam/$examId/attempt'
       path: '/exam/$examId/attempt'
@@ -386,12 +405,14 @@ interface AdminRouteChildren {
   AdminDashboardRoute: typeof AdminDashboardRoute
   AdminMonitoringRoute: typeof AdminMonitoringRoute
   AdminIndexRoute: typeof AdminIndexRoute
+  AdminSessionsSessionIdRoute: typeof AdminSessionsSessionIdRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminDashboardRoute: AdminDashboardRoute,
   AdminMonitoringRoute: AdminMonitoringRoute,
   AdminIndexRoute: AdminIndexRoute,
+  AdminSessionsSessionIdRoute: AdminSessionsSessionIdRoute,
 }
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
