@@ -18,6 +18,7 @@ import { Route as StudentRouteImport } from './routes/student'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminDashboardRouteImport } from './routes/admin.dashboard'
 import { Route as AdminMonitoringRouteImport } from './routes/admin.monitoring'
+import { Route as AdminStudentsRouteImport } from './routes/admin.students'
 import { Route as StudentIndexRouteImport } from './routes/student.index'
 import { Route as StudentDashboardRouteImport } from './routes/student.dashboard'
 import { Route as StudentDemoQuizRouteImport } from './routes/student.demo-quiz'
@@ -72,6 +73,11 @@ const AdminDashboardRoute = AdminDashboardRouteImport.update({
 const AdminMonitoringRoute = AdminMonitoringRouteImport.update({
   id: '/monitoring',
   path: '/monitoring',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminStudentsRoute = AdminStudentsRouteImport.update({
+  id: '/students',
+  path: '/students',
   getParentRoute: () => AdminRoute,
 } as any)
 const StudentIndexRoute = StudentIndexRouteImport.update({
@@ -134,6 +140,7 @@ export interface FileRoutesByFullPath {
   '/student': typeof StudentRouteWithChildren
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/monitoring': typeof AdminMonitoringRoute
+  '/admin/students': typeof AdminStudentsRoute
   '/student/dashboard': typeof StudentDashboardRoute
   '/student/demo-quiz': typeof StudentDemoQuizRoute
   '/student/exams': typeof StudentExamsRoute
@@ -153,6 +160,7 @@ export interface FileRoutesByTo {
   '/register': typeof RegisterRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/monitoring': typeof AdminMonitoringRoute
+  '/admin/students': typeof AdminStudentsRoute
   '/student/dashboard': typeof StudentDashboardRoute
   '/student/demo-quiz': typeof StudentDemoQuizRoute
   '/student/exams': typeof StudentExamsRoute
@@ -175,6 +183,7 @@ export interface FileRoutesById {
   '/student': typeof StudentRouteWithChildren
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/monitoring': typeof AdminMonitoringRoute
+  '/admin/students': typeof AdminStudentsRoute
   '/student/dashboard': typeof StudentDashboardRoute
   '/student/demo-quiz': typeof StudentDemoQuizRoute
   '/student/exams': typeof StudentExamsRoute
@@ -198,6 +207,7 @@ export interface FileRouteTypes {
     | '/student'
     | '/admin/dashboard'
     | '/admin/monitoring'
+    | '/admin/students'
     | '/student/dashboard'
     | '/student/demo-quiz'
     | '/student/exams'
@@ -217,6 +227,7 @@ export interface FileRouteTypes {
     | '/register'
     | '/admin/dashboard'
     | '/admin/monitoring'
+    | '/admin/students'
     | '/student/dashboard'
     | '/student/demo-quiz'
     | '/student/exams'
@@ -238,6 +249,7 @@ export interface FileRouteTypes {
     | '/student'
     | '/admin/dashboard'
     | '/admin/monitoring'
+    | '/admin/students'
     | '/student/dashboard'
     | '/student/demo-quiz'
     | '/student/exams'
@@ -328,6 +340,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminMonitoringRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/students': {
+      id: '/admin/students'
+      path: '/students'
+      fullPath: '/admin/students'
+      preLoaderRoute: typeof AdminStudentsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/student/': {
       id: '/student/'
       path: '/'
@@ -404,6 +423,7 @@ declare module '@tanstack/react-router' {
 interface AdminRouteChildren {
   AdminDashboardRoute: typeof AdminDashboardRoute
   AdminMonitoringRoute: typeof AdminMonitoringRoute
+  AdminStudentsRoute: typeof AdminStudentsRoute
   AdminIndexRoute: typeof AdminIndexRoute
   AdminSessionsSessionIdRoute: typeof AdminSessionsSessionIdRoute
 }
@@ -411,6 +431,7 @@ interface AdminRouteChildren {
 const AdminRouteChildren: AdminRouteChildren = {
   AdminDashboardRoute: AdminDashboardRoute,
   AdminMonitoringRoute: AdminMonitoringRoute,
+  AdminStudentsRoute: AdminStudentsRoute,
   AdminIndexRoute: AdminIndexRoute,
   AdminSessionsSessionIdRoute: AdminSessionsSessionIdRoute,
 }
