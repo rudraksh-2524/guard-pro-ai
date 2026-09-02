@@ -46,7 +46,7 @@ export function RoleArea({
   }
 
   return (
-    <AppShell nav={nav} roleLabel={roleLabel} mobileNavCount={mobileNavCount}>
+    <AppShell nav={nav} roleLabel={roleLabel} {...(mobileNavCount !== undefined ? { mobileNavCount } : {})}>
       {children}
     </AppShell>
   );
