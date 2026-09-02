@@ -8,8 +8,7 @@ import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { PageHeader, SectionTitle } from "@/components/common/states";
 import { DemoBadge } from "@/components/common/badges";
-import { PROCTOR_ENDPOINTS, RISK_LEVEL_BANDS, RISK_WEIGHTS } from "@/constants";
-import { EVENT_LABEL } from "@/constants";
+import { EVENT_LABEL, PROCTOR_ENDPOINTS, RISK_LEVEL_BANDS, RISK_WEIGHTS } from "@/constants";
 import { pageHead } from "@/lib/seo";
 import type { ProctorEventType } from "@/types";
 
