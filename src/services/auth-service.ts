@@ -139,7 +139,7 @@ export async function signUp(input: SignUpInput): Promise<AuthSession> {
   writeAccounts([...accounts, account]);
   const session: AuthSession = {
     user: account.user,
-    student_code: account.student_code,
+    ...(account.student_code ? { student_code: account.student_code } : {}),
     issued_at: new Date().toISOString(),
   };
   persist(session);

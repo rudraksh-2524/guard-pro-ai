@@ -8,7 +8,8 @@ import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { PageHeader, SectionTitle } from "@/components/common/states";
 import { DemoBadge } from "@/components/common/badges";
-import { EVENT_LABEL, PROCTOR_ENDPOINTS, RISK_LEVEL_BANDS, RISK_WEIGHTS } from "@/constants";
+import { EVENT_LABEL, RISK_LEVEL_BANDS, RISK_WEIGHTS } from "@/constants";
+import { PROCTOR_ENDPOINTS } from "@/services/proctoring-service";
 import { pageHead } from "@/lib/seo";
 import type { ProctorEventType } from "@/types";
 
@@ -142,7 +143,7 @@ function AdminSettings() {
               {Object.entries(PROCTOR_ENDPOINTS).map(([key, value]) => (
                 <li key={key} className="flex flex-wrap items-center justify-between gap-2 border-b border-border pb-1.5 last:border-0">
                   <span className="text-muted-foreground">{key}</span>
-                  <span className="text-foreground">{value}</span>
+                  <span className="text-foreground">{String(value)}</span>
                 </li>
               ))}
             </ul>

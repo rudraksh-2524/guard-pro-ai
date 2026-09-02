@@ -25,7 +25,8 @@ function AdminTesting() {
   const [score, setScore] = useState(0);
 
   function simulate(type: ProctorEventType) {
-    const next = applyEvent(score, type);
+    const outcome = applyEvent(score, type);
+    const next = outcome.score;
     const event: ProctorEvent = {
       id: `sim-${Date.now()}-${type}`,
       session_id: "testing-mode",
